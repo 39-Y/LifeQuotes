@@ -23,6 +23,10 @@ public class Main {
             else if ("목록".equals(commend)){
                 read();
             }
+            else if (commend.contains("삭제?id=")) {
+                int idx = commend.charAt(commend.length()-1)-'0';
+                remove(idx);
+            }
 
         }
         sc.close();
@@ -47,6 +51,14 @@ public class Main {
                 continue;
             System.out.printf("%d / %s / %s \n", i, lifeQuotes.get(i).author, lifeQuotes.get(i).quote);
         }
+    }
+
+    static public void remove(int idx){
+        if(lifeQuotes.size()>idx && lifeQuotes.get(idx) != null){
+            lifeQuotes.set(idx, null);
+            System.out.printf("%d번 명언이 삭제되었습니다.\n", idx);
+        }
+        //else System.out.println(idx+"번 명언은 존재하지 않습니다.");
     }
 
 
