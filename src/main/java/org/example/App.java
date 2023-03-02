@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.Entity.Quotes;
 import org.example.container.Sc;
 import org.example.controller.QuoteController;
 import org.example.controller.SystemController;
@@ -11,31 +12,40 @@ public class App {
 
     public void start(){
         System.out.println("== 명언 앱 ==");
+        systemCtrl.load();
         while (true){
             System.out.print("명령) ");
             String command = Sc.get().nextLine();
-            if("종료".equals(command)){
-                systemCtrl.exit();
-                break;
-            }
-            if("등록".equals(command)){
-                quoteCtrl.post();
-            }
-            else if ("목록".equals(command)){
-                quoteCtrl.read();
-            }
-            else if ("삭제".equals(Req.getAction(command))) {
-                try{
-                    quoteCtrl.remove((Integer) Req.getParam(command).get("id"));
-                } catch (Exception e){}
-            }
-            else if(command.contains("수정?id=")) {
-                try{
-                    quoteCtrl.update((Integer) Req.getParam(command).get("id"));
-                } catch (Exception e){}
-            }
-            else if("빌드".equals(command)) {
-                systemCtrl.build();
+
+            switch (Req.getAction(command)){
+                case "종료":
+                    systemCtrl.save();
+                    return;
+                case "등록":
+                    quoteCtrl.post();
+                    break;
+                case "목록":
+                    quoteCtrl.read();
+                    break;
+                case "삭제":
+                    try{
+                        quoteCtrl.remove(Req.getId(command));
+                    } catch (Exception e){
+                        System.out.println("명령어를 다시 입력해 주세요. -> 삭제?id=번호");
+                    }
+                    break;
+                case "수정":
+                    try{
+                        quoteCtrl.update(Req.getId(command));
+                    } catch (Exception e){
+                        System.out.println("명령어를 다시 입력해 주세요. -> 수정?id=번호");
+                    }
+                    break;
+                case "빌드":
+                    systemCtrl.build();
+                    break;
+                case "console":
+                    System.out.println(Quotes.getList().toString());
             }
 
         }

@@ -2,11 +2,7 @@ package org.example.service;
 
 import org.example.Entity.Quote;
 import org.example.Entity.Quotes;
-import org.example.container.Sc;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuoteService {
@@ -14,19 +10,36 @@ public class QuoteService {
         return Quotes.add(new Quote(quote, author));
     }
 
-    public void read() {
-        if(Quotes.size() == 0)
-            System.out.println("등록된 명언이 없습니다.");
+    public List<Quote> read() {
+        return Quotes.getList();
+    }
 
-        System.out.println("번호 / 작가 / 명언 \n ----------------------");
-        for(int i=Quotes.size()-1; i>=0; i-- ){
-            System.out.printf("%d / %s / %s \n", Quotes.get(i).getId(), Quotes.get(i).getAuthor(), Quotes.get(i).getQuote());
+    public int findIdxById(int num){
+        for(int i=0; i<Quotes.size(); i++){
+            if(Quotes.get(i).getId() == num)
+                return i;
         }
+        return -1;
     }
 
-    public void remove(int num) {
+    public Quote findById(int num){
+        for(int i=0; i<Quotes.size(); i++){
+            if(Quotes.get(i).getId() == num)
+                return Quotes.get(i);
+        }
+        return null;
     }
 
-    public void update(int num) {
+    public int remove(int id) {
+        int index = findIdxById(id);
+        if(index>=0)
+            Quotes.remove(index);
+        return index;
     }
+//    public void update(int index, String quote, String author) {
+//        System.out.println(quote+"//"+author);
+//        Quotes.get(index).setQuote(quote);
+//        Quotes.get(index).setAuthor(author);
+//    }
 }
+

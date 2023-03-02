@@ -18,7 +18,10 @@ public class Req {
             String[] key_value = param.split("[=]",2);
             map.put(key_value[0], key_value[1]);
         }
-
         return map;
+    }
+    public static int getId(String commend){
+        String id = (String) getParam(commend).get("id");
+        return Integer.parseInt(id);
     }
 }

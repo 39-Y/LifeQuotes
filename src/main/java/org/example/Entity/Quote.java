@@ -22,6 +22,14 @@ public class Quote {
         main_id = id;
     }
 
+    public void setQuote(String quote) {
+        this.quote = quote;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public int getId() {
         return id;
     }
