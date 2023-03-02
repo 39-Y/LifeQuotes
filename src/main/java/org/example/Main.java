@@ -20,7 +20,10 @@ public class Main {
             System.out.print("명령) ");
             String commend = sc.nextLine();
             if("종료".equals(commend)){
-                save();
+                System.out.println("빌드를 통해 저장하시겠습니까?(Y/N)");
+                String isSave = sc.nextLine();
+                if("Y".equals(isSave) || "y".equals(isSave))
+                    save();
                 break;
             }
             else if("등록".equals(commend)){
@@ -37,12 +40,18 @@ public class Main {
                 int idx = commend.charAt(commend.length()-1)-'0';
                 update(idx);
             }
+            else if("빌드".equals(commend)) {
+                save();
+
+            }
         }
         sc.close();
     }
 
     private static void load() {
         JSONArray arr = fileLoad();
+        if(arr == null)
+            return;
         for(int i= 0; i<arr.length(); i++ ){
             JSONObject obj = (JSONObject) arr.get(i);
             lifeQuotes.add(new Quote(obj));
@@ -52,7 +61,10 @@ public class Main {
     private static JSONArray fileLoad() {
         String json = "";
         try {
-            String filePath = "C:\\Users\\rla48\\quotes.txt";
+            File file = new File("C:\\Users\\rla48\\data.json");
+            if(!file.exists())
+                return null;
+            String filePath = "C:\\Users\\rla48\\data.json";
             FileInputStream fileStream = null;
 
             fileStream = new FileInputStream( filePath );
@@ -70,9 +82,10 @@ public class Main {
 
     private static void save() {
         try {
-            OutputStream output = new FileOutputStream("C:\\Users\\rla48\\quotes.txt");
+            OutputStream output = new FileOutputStream("C:\\Users\\rla48\\data.json");
             byte[] by=lifeQuotes.toString().getBytes();
             output.write(by);
+            System.out.println("data.json 파일의 내용이 갱신되었습니다.");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
