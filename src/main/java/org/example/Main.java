@@ -27,7 +27,10 @@ public class Main {
                 int idx = commend.charAt(commend.length()-1)-'0';
                 remove(idx);
             }
-
+            else if(commend.contains("수정?id=")) {
+                int idx = commend.charAt(commend.length()-1)-'0';
+                update(idx);
+            }
         }
         sc.close();
     }
@@ -61,7 +64,18 @@ public class Main {
         else System.out.println(idx+"번 명언은 존재하지 않습니다.");
     }
 
-
+    static public void update(int idx){
+        if(lifeQuotes.size()>idx && lifeQuotes.get(idx) != null){
+            System.out.println("명언(기존) : "+lifeQuotes.get(idx).quote);
+            System.out.print("명언 : ");
+            String newQuote = sc.nextLine();
+            System.out.println("작가(기존) : "+lifeQuotes.get(idx).author);
+            System.out.print("작가 : ");
+            String newAuthor = sc.nextLine();
+            lifeQuotes.set(idx, new Quote(newQuote, newAuthor));
+        }
+        else System.out.println(idx+"번 명언은 존재하지 않습니다.");
+    }
 
     static class Quote{
         String quote;
