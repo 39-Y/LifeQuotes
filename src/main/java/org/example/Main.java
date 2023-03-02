@@ -20,6 +20,9 @@ public class Main {
             else if("등록".equals(commend)){
                 post();
             }
+            else if ("목록".equals(commend)){
+                read();
+            }
 
         }
         sc.close();
@@ -32,6 +35,18 @@ public class Main {
         String author = sc.nextLine();
         lifeQuotes.add(new Quote(quote, author));
         System.out.printf("%d번 명언이 등록되었습니다.\n", lifeQuotes.size()-1);
+    }
+
+    static public void read(){
+        if(lifeQuotes.size() == 1)
+            System.out.println("등록된 명언이 없습니다.");
+
+        System.out.println("번호 / 작가 / 명언 \n ----------------------");
+        for(int i=lifeQuotes.size()-1; i>0; i-- ){
+            if(lifeQuotes.get(i) == null)
+                continue;
+            System.out.printf("%d / %s / %s \n", i, lifeQuotes.get(i).author, lifeQuotes.get(i).quote);
+        }
     }
 
 
