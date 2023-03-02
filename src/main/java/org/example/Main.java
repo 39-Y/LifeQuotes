@@ -17,9 +17,21 @@ public class Main {
             if("종료".equals(commend)){
                 break;
             }
+            else if("등록".equals(commend)){
+                post();
+            }
 
         }
         sc.close();
+    }
+
+    static public void post(){
+        System.out.print("명언: ");
+        String quote = sc.nextLine();
+        System.out.print("작가: ");
+        String author = sc.nextLine();
+        lifeQuotes.add(new Quote(quote, author));
+        System.out.printf("%d번 명언이 등록되었습니다.\n", lifeQuotes.size()-1);
     }
 
 
