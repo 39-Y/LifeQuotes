@@ -58,7 +58,7 @@ public class Main {
             lifeQuotes.set(idx, null);
             System.out.printf("%d번 명언이 삭제되었습니다.\n", idx);
         }
-        //else System.out.println(idx+"번 명언은 존재하지 않습니다.");
+        else System.out.println(idx+"번 명언은 존재하지 않습니다.");
     }
 
 
